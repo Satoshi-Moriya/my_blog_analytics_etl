@@ -3,10 +3,10 @@ version: '1.0.0'
 
 profile: 'my_blog_analytics_dw'
 
-source-paths: ["models"]
+model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
-data-paths: ["data"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
@@ -19,7 +19,4 @@ clean-targets:
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
-  my_blog_analytics_dbt:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+  +materialized: table

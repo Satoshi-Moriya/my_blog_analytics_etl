@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: "{{ env_var('DBT_BIGQUERY_DATASET') }}"
-    database: "{{ env_var('DBT_GCP_PROJECT') }}"
+  - name: "{{ env_var('DBT_BIGQUERY_DATASET') }}"  ## 念の為非公開
+    database: "{{ env_var('DBT_GCP_PROJECT') }}" ## 念の為非公開
     tables:
       - name: events_20*
         columns:
@@ -1032,7 +1032,7 @@ sources:
               meta: {}
               tags: []
 models:
-  - name: stg_googleanalytics__events
+  - name: stg_googleanalytics_events
     columns:
       - name: event_date
         description: ''

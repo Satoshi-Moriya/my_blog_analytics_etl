@@ -19,4 +19,5 @@ clean-targets:
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
+  +dbt-osmosis: "schema/{model}.yml"
   +materialized: table

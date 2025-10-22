@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: int_blog_pv
+    description: 'pvログ'
+    columns:
+      - name: user_id
+        description: ''
+        config:
+          meta: {}
+          tags: []
+      - name: event_time_jst
+        description: ''
+        config:
+          meta: {}
+          tags: []
+      - name: country
+        description: ''
+        config:
+          meta: {}
+          tags: []

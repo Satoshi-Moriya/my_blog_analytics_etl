@@ -5,3 +5,4 @@ logs/
 venv
 .tool-versions
 .DS_Store
+.user.yml

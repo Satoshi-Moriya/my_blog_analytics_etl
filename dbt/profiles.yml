@@ -1,0 +1,14 @@
+my_blog_analytics_dw:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      location: asia-northeast1
+      method: oauth
+      project: "{{ env_var('DBT_GCP_PROJECT') }}"
+      dataset: prod
+      threads: 1
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      maximum_bytes_billed: 1000000000
+      priority: interactive

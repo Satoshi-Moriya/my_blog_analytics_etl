@@ -7,5 +7,4 @@ COPY dbt ./dbt
 
 # 元にしているイメージでENTRYPOINTが設定されているので上書き
 ENTRYPOINT [ "/bin/sh", "-c" ]
-
 CMD [ "./scripts/batch.sh" ]

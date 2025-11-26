@@ -4,6 +4,7 @@ WORKDIR /dbt_pj
 
 COPY scripts/batch.sh ./scripts/batch.sh
 COPY dbt ./dbt
+COPY .env ./
 
 WORKDIR /dbt_pj/dbt
 

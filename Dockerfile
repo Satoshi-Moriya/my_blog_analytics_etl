@@ -8,6 +8,8 @@ COPY .env ./
 
 WORKDIR /dbt_pj/dbt
 
+RUN pip install dbt-bigquery
+
 # 元にしているイメージでENTRYPOINTが設定されているので上書き
 ENTRYPOINT [ "/bin/sh", "-c" ]
 CMD [ "../scripts/batch.sh" ]

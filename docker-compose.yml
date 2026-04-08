@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  dbt:
+    build: .
+    volumes:
+      - .:/app
+      - ~/.config/gcloud:/root/.config/gcloud
+    env_file:
+      - .env
+    tty: true

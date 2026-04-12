@@ -1,10 +1,21 @@
 [sqlfluff]
 dialect = bigquery
 templater = dbt
+max_line_length = 120
 
 [sqlfluff:templater:dbt]
 project_dir = /app/dbt
 profiles_dir = /app/dbt
 
 [sqlfluff:rules]
-max_line_length = 120
+capitalisation_policy = lower
+select_clause_trailing_comma = require
+allow_scalar = True
+single_table_references = consistent
+
+[sqlfluff:indentation]
+tab_space_size = 2
+indent_unit = space
+
+[sqlfluff:layout:type:comma]
+line_position = leading

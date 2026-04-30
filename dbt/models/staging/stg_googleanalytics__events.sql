@@ -6,4 +6,4 @@
   )
 }}
 
-select * from {{ source('analytics_391322470', 'events_20*') }}
+select * from {{ source(env_var('DBT_BIGQUERY_DATASET'), 'events_20*') }}

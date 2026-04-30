@@ -8,13 +8,15 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+
+    env:
+      DBT_GCP_PROJECT: ${{ secrets.CI_GCP_PROJECT }}
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: |
-          cp .env.example .env
-          docker build -t dbt-app .
+        run: docker build -t dbt-app .
 
       - name: Run sqlfluff lint
-        run: docker run --rm --env-file .env dbt-app sqlfluff lint ./dbt/models/
+        run: docker run dbt-app sqlfluff lint ./dbt/models/

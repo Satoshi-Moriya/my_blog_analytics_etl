@@ -12,17 +12,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create env file
-        run: |
-          cat <<EOF >> .env
-          DBT_TARGET=dev
-          DBT_GCP_PROJECT=${{ secrets.CI_GCP_PROJECT }}
-          DBT_BIGQUERY_DATASET=${{ secrets.CI_BIGQUERY_DATASET }}
-          EOF
+      - uses: 'google-github-actions/auth@v3'
+        with:
+          project_id: ${{ secrets.CI_GCP_PROJECT }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
 
-      - name: Build Docker image
-        run: docker build -t dbt-app .
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      - name: Run sqlfluff lint
+      - name: Install dependencies
         run: |
-          docker run --rm --env-file .env dbt-app sqlfluff lint ./dbt/models/
+          pip install --no-cache-dir dbt-bigquery sqlfluff sqlfluff-templater-dbt
+
+      - name: Run SQLFluff lint
+        run: |
+          sqlfluff lint ./dbt/models/
+        env:
+          DBT_TARGET: dev
+          DBT_GCP_PROJECT: ${{ secrets.CI_GCP_PROJECT }}
+          DBT_BIGQUERY_DATASET: ${{ secrets.CI_BIGQUERY_DATASET }}

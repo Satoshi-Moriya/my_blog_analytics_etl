@@ -12,10 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Create env file
+        run: |
+          cat <<EOF >> .env
+          DBT_TARGET=dev
+          DBT_GCP_PROJECT=${{ secrets.CI_GCP_PROJECT }}
+          DBT_BIGQUERY_DATASET=${{ secrets.CI_BIGQUERY_DATASET }}
+          EOF
+
       - name: Build Docker image
         run: docker build -t dbt-app .
 
       - name: Run sqlfluff lint
-        env:
-          DBT_GCP_PROJECT: ${{ secrets.CI_GCP_PROJECT }}
-        run: docker run dbt-app sqlfluff lint ./dbt/models/
+        run: |
+          docker run --rm --env-file .env dbt-app sqlfluff lint ./dbt/models/

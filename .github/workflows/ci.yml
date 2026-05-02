@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: 'google-github-actions/auth@v3'
+        with:
+          project_id: ${{ secrets.CI_GCP_PROJECT }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir dbt-bigquery sqlfluff sqlfluff-templater-dbt
+
+      - name: Run SQLFluff lint
+        run: |
+          sqlfluff lint ./dbt/models/
+        env:
+          DBT_TARGET: dev
+          DBT_GCP_PROJECT: ${{ secrets.CI_GCP_PROJECT }}
+          DBT_BIGQUERY_DATASET: ${{ secrets.CI_BIGQUERY_DATASET }}

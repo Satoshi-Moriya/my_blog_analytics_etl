@@ -9,12 +9,12 @@
 with
 
 googleanalytics_events_log as (
-    select * from {{ ref('stg_googleanalytics__events') }}
+  select * from {{ ref('stg_googleanalytics__events') }}
 )
 
 select
-    user_pseudo_id as user_id,
-    datetime(timestamp_micros(event_timestamp),  "Asia/Tokyo") as event_time_jst,
-    geo.country as country
+  user_pseudo_id as user_id
+  , geo.country
+  , datetime(timestamp_micros(event_timestamp), "Asia/Tokyo") as event_time_jst
 from googleanalytics_events_log
-where event_name = 'page_view'
+where event_name = "page_view"

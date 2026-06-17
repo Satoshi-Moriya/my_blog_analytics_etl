@@ -7,7 +7,7 @@ echo "== dbt deps =="
 dbt deps
 
 echo "== dbt run =="
-dbt run --target ${DBT_TARGET:-prod}
+dbt run --target ${DBT_TARGET}
 
 echo "== dbt test =="
-dbt test --target ${DBT_TARGET:-prod}
+dbt test --target ${DBT_TARGET}

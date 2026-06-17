@@ -9,12 +9,12 @@
 with
 
 int_blog_pv as (
-    select * from {{ ref('int_blog_pv') }}
+  select * from {{ ref('int_blog_pv') }}
 )
 
 select
-    date(event_time_jst) as date,
-    country,
-    count(*) as pv_count
+  country
+  , date(event_time_jst) as `date`
+  , count(*) as pv_count
 from int_blog_pv
-group by 1, 2
+group by country, `date`

@@ -13,8 +13,8 @@ int_blog_pv as (
 )
 
 select
-  date(event_time_jst) as `date`
-  , country
+  country
+  , date(event_time_jst) as `date`
   , count(*) as pv_count
 from int_blog_pv
-group by `date`, country
+group by country, `date`
